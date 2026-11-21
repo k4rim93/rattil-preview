@@ -1,0 +1,39 @@
+name: Publish isolated Rattil preview
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: preview-pages
+  cancel-in-progress: true
+jobs:
+  preview:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out approved prototype
+        uses: actions/checkout@v6
+        with:
+          repository: k4rim93/rattil-app
+          ref: 99939f97bace08e7079be3f5c96da01dc2e2989f
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - run: npm run build
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist
+      - name: Deploy isolated preview
+        id: deployment
+        uses: actions/deploy-pages@v4
