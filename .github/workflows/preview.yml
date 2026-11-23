@@ -18,7 +18,7 @@ jobs:
         uses: actions/checkout@v6
         with:
           repository: k4rim93/rattil-app
-          ref: 8472f4835d704c9e6475f88b861ead6de03cf09e
+          ref: dcfdd2b67d4313e35142425abf3e971ac23fdc3d
           persist-credentials: false
       - uses: actions/setup-node@v4
         with:
@@ -34,10 +34,3 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
