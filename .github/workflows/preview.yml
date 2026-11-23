@@ -18,7 +18,7 @@ jobs:
         uses: actions/checkout@v6
         with:
           repository: k4rim93/rattil-app
-          ref: dcfdd2b67d4313e35142425abf3e971ac23fdc3d
+          ref: 5406510a6315d9ec997b2d06c4b71fb8a213cf12
           persist-credentials: false
       - uses: actions/setup-node@v4
         with:
